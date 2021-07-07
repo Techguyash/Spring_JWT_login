@@ -1,7 +1,6 @@
 package com.coma.Auth.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +35,7 @@ public class UserService implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException
     {
-	 System.out.println("Working load by user");
-	 Optional<AppUser> user=repo.findByEmail(email);
-	 System.out.println(user.toString());
-	 System.out.println("user data above");
+	
 	return repo.findByEmail(email)
 		 .orElseThrow(()-> new UsernameNotFoundException(USER_NOT_FOUND_MSG));
     }
