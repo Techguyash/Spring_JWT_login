@@ -33,7 +33,7 @@ public class RegistrationService
 		request.getPassword(),request.getUserRole()));
 	
 	String link="http://localhost:8080/api/v1/auth/confirm?token="+token;
-	emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+	//emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
 	return token;
     }
     

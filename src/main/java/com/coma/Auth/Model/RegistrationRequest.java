@@ -1,6 +1,6 @@
 package com.coma.Auth.Model;
 
-
+import java.time.LocalDate;
 
 public class RegistrationRequest
 {
@@ -10,11 +10,18 @@ public class RegistrationRequest
     private  String email;
     private  String password;
     private String userRole;
+    private LocalDate dob;
     
    
     public String getFirstName()
     {
         return firstName;
+    }
+    public LocalDate getDob() {
+        return dob;
+    }
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
     public String getLastName()
     {

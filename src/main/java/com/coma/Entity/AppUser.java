@@ -1,5 +1,7 @@
 package com.coma.Entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -31,8 +33,10 @@ public class AppUser implements UserDetails
 	    private String lastName;
 	    private String email;
 	    private String password;
-	    private boolean enabled=false;
-	    private String appUserRole;
+		private LocalDate dob;
+		private LocalDateTime lastLogin;
+		private boolean enabled=false;
+		private String appUserRole;
 	    private boolean locked=false;
 	    
 	    
@@ -41,21 +45,37 @@ public class AppUser implements UserDetails
 	    {
 		super();
 	    }
-	    
+		public AppUser(String firstName, String lastName, String email, String password, String appUserRole) {
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.password = password;
+			this.appUserRole = appUserRole;
+		}
 	  
 
-	    public AppUser(String firstName, String lastName, String email, String password, String appUserRole)
-	    {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.password = password;
-		this.appUserRole = appUserRole;
-	    }
+	    public LocalDate getDob() {
+			return dob;
+		}
 
-	    	
-	    @Override
+
+
+		public void setDob(LocalDate dob) {
+			this.dob = dob;
+		}
+
+
+
+		public LocalDateTime getLastLogin() {
+			return lastLogin;
+		}
+
+
+
+		public void setLastLogin(LocalDateTime lastLogin) {
+			this.lastLogin = lastLogin;
+		}
+		@Override
 	    public String toString()
 	    {
 		return "AppUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
