@@ -19,7 +19,7 @@ import com.coma.Entity.AppUser;
 public class RegistrationService
 {
     @Autowired
-    UserRegistrationService userService;
+    UserService_Registration userService;
     
     @Autowired
     ConfirmationTokenService confirmationTokenService;

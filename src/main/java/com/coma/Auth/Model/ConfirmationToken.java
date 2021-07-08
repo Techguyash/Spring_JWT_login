@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import com.coma.Entity.AppUser;
 
 
@@ -30,6 +33,7 @@ public class ConfirmationToken
     private LocalDateTime confirmedAt;
     @ManyToOne
     @JoinColumn(nullable = false, name = "app_user_id")
+    @Cascade(CascadeType.ALL)
     private AppUser appUser;
 
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt,

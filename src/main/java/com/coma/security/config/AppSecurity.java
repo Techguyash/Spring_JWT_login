@@ -13,7 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import com.coma.Auth.Service.UserRegistrationService;
+import com.coma.Auth.Service.UserService_Registration;
 import com.coma.security.Filter.JwtFilter;
 
 @Configuration
@@ -21,7 +21,7 @@ import com.coma.security.Filter.JwtFilter;
 public class AppSecurity extends WebSecurityConfigurerAdapter
 {
     @Autowired
-    UserRegistrationService userService;
+    UserService_Registration userService;
     
     @Autowired
     private JwtFilter jwtFilter;
@@ -39,7 +39,7 @@ public class AppSecurity extends WebSecurityConfigurerAdapter
 	 http.csrf().disable()
 	        .authorizeRequests()
 	       .antMatchers("/api/v*/auth/**").permitAll()
-	       .antMatchers("/api/v*/user/**").hasRole("ADMIN")
+	       .antMatchers("/api/v*/admin/**").hasRole("ADMIN")
 	       .antMatchers("/hello").permitAll()
 	        .anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()

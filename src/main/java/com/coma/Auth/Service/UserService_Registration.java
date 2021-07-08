@@ -18,7 +18,7 @@ import com.coma.Repo.UserRepo;
 
 
 @Service
-public class UserRegistrationService implements UserDetailsService
+public class UserService_Registration implements UserDetailsService
 {
     private final static String USER_NOT_FOUND_MSG="User with email : %s not found";
     
