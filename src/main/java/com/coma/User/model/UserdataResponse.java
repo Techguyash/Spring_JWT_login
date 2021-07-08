@@ -26,6 +26,13 @@ this.enabled = enabled;
 
 
 
+    public UserdataResponse()
+    {
+	
+    }
+
+
+
     public LocalDate getDob() {
         return dob;
     }

@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.coma.Auth.Service.UserService;
+import com.coma.Auth.Service.UserRegistrationService;
 import com.coma.security.util.JwtUtil;
 
 
@@ -28,7 +28,7 @@ public class JwtFilter extends OncePerRequestFilter
     JwtUtil jwtUtil;
     
     @Autowired
-    UserService service;
+    UserRegistrationService service;
 
     
     @Override

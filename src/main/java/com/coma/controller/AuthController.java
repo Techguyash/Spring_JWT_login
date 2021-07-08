@@ -33,7 +33,7 @@ public class AuthController
     /*
      * This End point is used to login
      * will return a JWT token for authorization
-     * will tahe @Param of type AuthRequest 
+     * will take @Param of type AuthRequest 
      * */
     @PostMapping("/authenticate")
     public String authenticate(@RequestBody AuthRequest authReq) throws Exception
