@@ -6,7 +6,7 @@ import com.coma.Repo.TokenRepo;
 import com.coma.Repo.UserRepo;
 import com.coma.User.model.UserdataResponse;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
