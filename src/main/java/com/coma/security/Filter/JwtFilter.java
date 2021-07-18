@@ -15,6 +15,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 import com.coma.Auth.Service.UserService_Registration;
 import com.coma.security.util.JwtUtil;
 
@@ -36,7 +38,7 @@ public class JwtFilter extends OncePerRequestFilter
 	    throws ServletException, IOException
     {
 	
-	
+	try{
 	 String header = request.getHeader("Authorization");
 
 	        String token = null;
@@ -51,7 +53,6 @@ public class JwtFilter extends OncePerRequestFilter
 	        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 	            UserDetails userDetails = service.loadUserByUsername(email);
-
 	            if (jwtUtil.validateToken(token, userDetails)) {
 
 	                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -60,7 +61,16 @@ public class JwtFilter extends OncePerRequestFilter
 	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 	            }
+				else{
+					throw new IllegalAccessError("Session expired");
+				}
 	        }
+		}
+		catch(ExpiredJwtException e)
+		{
+			System.out.println("Session Expired");
+			e.printStackTrace();
+		}
 	        filterChain.doFilter(request, response);
 	
     }

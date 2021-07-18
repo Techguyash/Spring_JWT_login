@@ -1,19 +1,17 @@
 package com.coma.Entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+
 
 import javax.persistence.OneToOne;
+
 
 
 @Entity
@@ -30,11 +28,21 @@ public class Products
    @OneToOne
    @JoinColumn(name = "unitId")
     private Units unit;
-   @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-   private List<Category> category=new ArrayList<Category>();
+   @OneToOne(fetch = FetchType.EAGER)
+   private Category category;
 
 
-    public Products(long productId, String productName, float stockQty, float price, String description, LocalDate createdOn, Units unit, List<Category> category) {
+    public Products( String productName, float stockQty, float price, String description, LocalDate createdOn, Units unit, Category category) {
+        this.productName = productName;
+        this.stockQty = stockQty;
+        this.price = price;
+        this.description = description;
+        this.createdOn = createdOn;
+        this.unit = unit;
+        this.category = category;
+    }
+
+    public Products(long productId, String productName, float stockQty, float price, String description, LocalDate createdOn, Units unit, Category category) {
         this.productId = productId;
         this.productName = productName;
         this.stockQty = stockQty;
@@ -102,11 +110,11 @@ public class Products
         this.unit = unit;
     }
 
-    public List<Category> getCategory() {
+    public Category getCategory() {
         return this.category;
     }
 
-    public void setCategory(List<Category> category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coma.Auth.Model.ConfirmationToken;
-import com.coma.Repo.TokenRepo;
+import com.coma.Repository.TokenRepo;
 
 
 

@@ -1,14 +1,13 @@
 package com.coma.Entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+
 
 @Entity
 public class Category
@@ -19,20 +18,18 @@ public class Category
     private String categoryName;
     private String  description;
     private LocalDate createdOn;
-    @ManyToMany(mappedBy = "category")
-    private List<Products> product=new ArrayList<Products>();
 
 
 
     public Category() {
     }
 
-    public Category(int categoryId, String categoryName, String description, LocalDate createdOn, List<Products> product) {
+    public Category(int categoryId, String categoryName, String description, LocalDate createdOn) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.description = description;
         this.createdOn = createdOn;
-        this.product = product;
+       
     }
 
 
@@ -68,14 +65,7 @@ public class Category
         this.createdOn = createdOn;
     }
 
-    public List<Products> getProduct() {
-        return this.product;
-    }
-
-    public void setProduct(List<Products> product) {
-        this.product = product;
-    }
-
+  
 
 
 }

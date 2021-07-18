@@ -2,8 +2,8 @@ package com.coma.User.service;
 
 import com.coma.Auth.Model.RegistrationRequest;
 import com.coma.Entity.AppUser;
-import com.coma.Repo.TokenRepo;
-import com.coma.Repo.UserRepo;
+import com.coma.Repository.TokenRepo;
+import com.coma.Repository.UserRepo;
 import com.coma.User.model.UserdataResponse;
 
 

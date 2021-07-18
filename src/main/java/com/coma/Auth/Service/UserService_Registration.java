@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.coma.Auth.Model.ConfirmationToken;
 import com.coma.Entity.AppUser;
-import com.coma.Repo.UserRepo;
+import com.coma.Repository.UserRepo;
 
 
 

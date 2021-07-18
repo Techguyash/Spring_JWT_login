@@ -1,4 +1,4 @@
-package com.coma.Repo;
+package com.coma.Repository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

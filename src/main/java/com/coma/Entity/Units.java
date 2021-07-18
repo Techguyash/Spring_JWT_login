@@ -19,11 +19,19 @@ public class Units
     private String description;
   
 
-
-
-
     public Units() {
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " unitId='" + getUnitId() + "'" +
+            ", unitName='" + getUnitName() + "'" +
+            ", shortForm='" + getShortForm() + "'" +
+            ", description='" + getDescription() + "'" +
+            "}";
+    }
+
 
 
     public Units(int unitId, String unitName, String shortForm, String description) {
