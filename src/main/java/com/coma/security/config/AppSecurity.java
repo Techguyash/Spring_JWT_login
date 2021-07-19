@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,6 +21,9 @@ import com.coma.security.Filter.JwtFilter;
 @EnableWebSecurity
 public class AppSecurity extends WebSecurityConfigurerAdapter
 {
+  
+
+
     @Autowired
     UserService_Registration userService;
     
@@ -29,7 +33,26 @@ public class AppSecurity extends WebSecurityConfigurerAdapter
     @Autowired
     private  BCryptPasswordEncoder bCryptPasswordEncoder;
     
-   
+    private static final String[] AUTH_WHITELIST = {
+        // -- Swagger UI v2
+        "/v2/api-docs",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/**",
+        "/swagger-ui.html",
+        "/webjars/**",
+        // -- Swagger UI v3 (OpenAPI)
+        "/v3/api-docs/**",
+        "/swagger-ui/**"
+        // other public endpoints of your API may be appended to this array
+};
+
+@Override
+public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+        .antMatchers(AUTH_WHITELIST);
+    
+}
 
     @Override
     protected void configure(HttpSecurity http) throws Exception 
@@ -39,8 +62,9 @@ public class AppSecurity extends WebSecurityConfigurerAdapter
 	 http.csrf().disable()
 	        .authorizeRequests()
 	       .antMatchers("/api/v*/auth/**").permitAll()
+           .antMatchers("/hello").permitAll()
 	       .antMatchers("/api/v*/admin/**").hasRole("ADMIN")
-	       .antMatchers("/hello").permitAll()
+	     
 	        .anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -3,11 +3,16 @@ package com.coma.controller;
 import com.coma.Billing.Data.model.CreateCategoryRequest;
 import com.coma.Billing.Data.model.CreateProductRequest;
 import com.coma.Billing.Data.service.CategoryService;
+import com.coma.Billing.Data.service.CustomerService;
 import com.coma.Billing.Data.service.ProductService;
 import com.coma.Billing.Data.service.UnitService;
+import com.coma.Billing.Data.service.VendorService;
 import com.coma.Entity.Category;
+import com.coma.Entity.Customer;
 import com.coma.Entity.Products;
 import com.coma.Entity.Units;
+import com.coma.Entity.Vendor;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +38,12 @@ public class BillDataController {
 
   @Autowired
   CategoryService categoryService;
+
+  @Autowired
+  CustomerService customerService;
+
+  @Autowired
+  VendorService vendorService;
 
   //TODO: controller mapping for Units
 
@@ -73,13 +84,12 @@ public class BillDataController {
   @GetMapping("/units/{unitId}")
   public Units getUnit(@PathVariable int unitId) throws Exception {
     try {
-       Units unit = unitService.getUnit(unitId);
-       if(unit==null)
-       {
+      Units unit = unitService.getUnit(unitId);
+      if (unit == null) {
         throw new Exception("Value not found");
-       }
-      
-       return unit;
+      }
+
+      return unit;
     } catch (Exception e) {
       throw new Exception(e.getMessage());
     }
@@ -105,7 +115,7 @@ public class BillDataController {
     }
   }
 
-  @DeleteMapping("/product/{productId}")
+  @DeleteMapping("/product/{Id}")
   public ResponseEntity<Object> removeProduct(@PathVariable int Id) {
     try {
       productService.deleteProduct(Id);
@@ -115,7 +125,7 @@ public class BillDataController {
     }
   }
 
-  @GetMapping("/products")
+  @GetMapping("/product")
   public List<Products> getAllProducts() throws Exception {
     try {
       return productService.getAllProducts();
@@ -124,7 +134,7 @@ public class BillDataController {
     }
   }
 
-  @GetMapping("/products/{id}")
+  @GetMapping("/product/{id}")
   public Products getProducts(@PathVariable long id) throws Exception {
     try {
       return productService.getProduct(id);
@@ -198,9 +208,7 @@ public class BillDataController {
     }
   }
 
-
-
-@PutMapping("/category")
+  @PutMapping("/category")
   public ResponseEntity<Category> updateCategory(@RequestBody Category req)
     throws Exception {
     try {
@@ -211,6 +219,140 @@ public class BillDataController {
       return new ResponseEntity<Category>(category, HttpStatus.OK);
     } catch (Exception e) {
       //TODO: handle exception
+      e.printStackTrace();
+      throw new Exception("Error, Please check log");
+    }
+  }
+
+  //TODO: controller mapping for Customer
+
+
+  @PostMapping("/customer")
+  public ResponseEntity<Customer> createCustomer(
+    @RequestBody Customer req
+  )
+    throws Exception {
+    try {
+      Customer createCustomer = null;
+      createCustomer = customerService.createCustomer(req);
+      if (createCustomer == null) {
+        throw new Exception("Failed to create, Please check log");
+      }
+      return new ResponseEntity<Customer>(createCustomer, HttpStatus.OK);
+    } catch (Exception e) {
+      throw new Exception("error, Please check log");
+    }
+  }
+
+
+  @DeleteMapping("customer/{id}")
+  public ResponseEntity<Object> deleteCustomer(@PathVariable int id) {
+    try {
+      if (customerService.deleteCustomer(id)) {
+        return new ResponseEntity<Object>("success", HttpStatus.OK);
+      }
+      return new ResponseEntity<Object>("error", HttpStatus.BAD_REQUEST);
+    } catch (Exception e) {
+      return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @GetMapping("/customer")
+  public List<Customer> getAllCustomer() throws Exception {
+    try {
+      return customerService.getAllCustomers();
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  @GetMapping("/customer/{customerId}")
+  public Customer getCustomer(@PathVariable int customerId) throws Exception {
+    try {
+      return customerService.getCustomer(customerId);
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  @PutMapping("/customer")
+  public ResponseEntity<Customer> updateCustomer(@RequestBody Customer req)
+    throws Exception {
+    try {
+      Customer customer = customerService.updateCustomer(req);
+      if (customer == null) {
+        throw new Exception("Failed to update, Please check log");
+      }
+      return new ResponseEntity<Customer>(customer, HttpStatus.OK);
+    } catch (Exception e) {
+      
+      e.printStackTrace();
+      throw new Exception("Error, Please check log");
+    }
+  }
+
+
+  //TODO: controller mapping for Vendor
+
+  @PostMapping("/vendor")
+  public ResponseEntity<Vendor> createVendor(
+    @RequestBody Vendor req
+  )
+    throws Exception {
+    try {
+      Vendor createVendor = null;
+      createVendor = vendorService.createVendor(req);
+      if (createVendor == null) {
+        throw new Exception("Failed to create, Please check log");
+      }
+      return new ResponseEntity<Vendor>(createVendor, HttpStatus.OK);
+    } catch (Exception e) {
+      throw new Exception("error, Please check log");
+    }
+  }
+
+
+  @DeleteMapping("vendor/{id}")
+  public ResponseEntity<Object> deleteVendor(@PathVariable int id) {
+    try {
+      if (vendorService.deleteVendor(id)) {
+        return new ResponseEntity<Object>("success", HttpStatus.OK);
+      }
+      return new ResponseEntity<Object>("error", HttpStatus.BAD_REQUEST);
+    } catch (Exception e) {
+      return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @GetMapping("/vendor")
+  public List<Vendor> getAllVendor() throws Exception {
+    try {
+      return vendorService.getAllVendors();
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  @GetMapping("/vendor/{vendorId}")
+  public Vendor getVendor(@PathVariable int vendorId) throws Exception {
+    try {
+      return vendorService.getVendor(vendorId);
+    } catch (Exception e) {
+      throw new Exception(e.getMessage());
+    }
+  }
+
+  @PutMapping("/vendor")
+  public ResponseEntity<Vendor> updateVendor(@RequestBody Vendor req)
+    throws Exception {
+    try {
+      Vendor vendor = vendorService.updateVendor(req);
+      if (vendor == null) {
+        throw new Exception("Failed to update, Please check log");
+      }
+      return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
+    } catch (Exception e) {
+      
       e.printStackTrace();
       throw new Exception("Error, Please check log");
     }

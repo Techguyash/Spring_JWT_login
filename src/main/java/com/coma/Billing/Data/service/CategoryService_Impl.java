@@ -20,7 +20,7 @@ public class CategoryService_Impl implements CategoryService {
       List<Category> availableCategory = getAllCategorys();
 
       for (Category cate : availableCategory) {
-        if (cate.getCategoryName().equals(req.getCategoryName())) {
+        if (cate.getCategoryName().equalsIgnoreCase(req.getCategoryName())) {
           throw new Exception("Value already availble");
         }
       }
@@ -38,7 +38,16 @@ public class CategoryService_Impl implements CategoryService {
 
   @Override
   public Category getCategory(int id) {
-    return catRepo.getById(id);
+    Category foundCategory=null;
+    try {
+      foundCategory= catRepo.getById(id);
+      return foundCategory;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return foundCategory;
+    }
+    
+   
   }
 
   @Override

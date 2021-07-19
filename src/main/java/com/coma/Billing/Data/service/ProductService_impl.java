@@ -26,7 +26,7 @@ public class ProductService_impl implements ProductService {
   public Products createProduct(CreateProductRequest product) {
     Units unit = null;
     try {
-      //TODO : extract unit as a string from req and assign in unit obj
+      /*TODO : extract unit as a string from req and assign in unit obj*/
 
       unit = unitService.getUnit(product.getUnitId());
       if (unit == null) {
@@ -38,6 +38,14 @@ public class ProductService_impl implements ProductService {
       if (category == null) {
         throw new Exception("Invalid category");
       }
+        List<Products> allProducts = getAllProducts();
+      for(Products entity : allProducts)
+      {
+        if(entity.getProductName().equalsIgnoreCase(product.getProductName()) && entity.getCategory().equals(category))
+        {
+          throw new Exception("value already available");
+        }
+      }
 
       Products entity = new Products();
       entity.setProductName(product.getProductName());
@@ -48,6 +56,7 @@ public class ProductService_impl implements ProductService {
       entity.setCreatedOn(LocalDate.now());
       entity.setCategory(category);
       return repo.save(entity);
+     
     } catch (Exception e) {
       e.printStackTrace();
       return null;
@@ -67,7 +76,7 @@ public class ProductService_impl implements ProductService {
   @Override
   public Products getProduct(long id) {
     try {
-      return repo.getById(id);
+      return repo.findById(id).get();
     } catch (Exception e) {
       e.printStackTrace();
       return null;

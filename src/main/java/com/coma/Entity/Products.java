@@ -3,18 +3,18 @@ package com.coma.Entity;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-
-
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Products
 {
     @Id
@@ -28,7 +28,8 @@ public class Products
    @OneToOne
    @JoinColumn(name = "unitId")
     private Units unit;
-   @OneToOne(fetch = FetchType.EAGER)
+   @OneToOne
+   
    private Category category;
 
 

@@ -27,6 +27,7 @@ public class UserRoleService_Impl implements UserRoleService {
 	@Override
 	public int createRole(AppUser_Role role) {
 		try {
+			
 			AppUser_Role save = repo.save(role);
 			return 1;
 		} catch (Exception e) {
@@ -45,6 +46,19 @@ public class UserRoleService_Impl implements UserRoleService {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+
+	@Override
+	public AppUser_Role getRole(int id) {
+	try{
+		return repo.findById(id).get();
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		return null;
+	}
+		
 	}
 
 }

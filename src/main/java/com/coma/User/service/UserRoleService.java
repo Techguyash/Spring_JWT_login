@@ -10,6 +10,7 @@ public interface UserRoleService
     List<AppUser_Role> getAllRole();
     int createRole(AppUser_Role role);
     int deleteRole(int roleId);
+    AppUser_Role getRole(int id);
     
 
 }
