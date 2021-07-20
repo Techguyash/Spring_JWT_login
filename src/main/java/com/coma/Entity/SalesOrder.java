@@ -1,14 +1,12 @@
 package com.coma.Entity;
 
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,28 +16,27 @@ public class SalesOrder
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long salesId;
-    @ManyToMany
-    private List<Products> product;
+    @OneToOne
+    @JoinColumn(name = "productId")
+    private Products product;
+    @OneToOne
+    @JoinColumn(name = "invoiceNo")
+    private Invoice invoice;
     private float qty;
     private float soldPrice;
     private float total;
-    @ManyToOne
-    @JoinColumn(name = "invoiceNo")
-    private Invoice invoice;
 
 
-
-
-    public SalesOrder() {
-    }
-
-    public SalesOrder(long salesId, List<Products> product, float qty, float soldPrice, float total, Invoice invoice) {
+    public SalesOrder(long salesId, Products product, Invoice invoice, float qty, float soldPrice, float total) {
         this.salesId = salesId;
         this.product = product;
+        this.invoice = invoice;
         this.qty = qty;
         this.soldPrice = soldPrice;
         this.total = total;
-        this.invoice = invoice;
+    }
+
+    public SalesOrder() {
     }
 
     public long getSalesId() {
@@ -50,12 +47,20 @@ public class SalesOrder
         this.salesId = salesId;
     }
 
-    public List<Products> getProduct() {
+    public Products getProduct() {
         return this.product;
     }
 
-    public void setProduct(List<Products> product) {
+    public void setProduct(Products product) {
         this.product = product;
+    }
+
+    public Invoice getInvoice() {
+        return this.invoice;
+    }
+
+    public void setInvoice(Invoice invoice) {
+        this.invoice = invoice;
     }
 
     public float getQty() {
@@ -82,13 +87,11 @@ public class SalesOrder
         this.total = total;
     }
 
-    public Invoice getInvoice() {
-        return this.invoice;
-    }
-
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
-    }
+   
+   
 
 
+
+
+  
 }

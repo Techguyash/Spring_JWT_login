@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.jsonwebtoken.JwtException;
+
 import com.coma.Auth.Model.AuthRequest;
 import com.coma.Auth.Model.RegistrationRequest;
 import com.coma.Auth.Service.RegistrationService;
@@ -43,9 +45,10 @@ public class AuthController
 	    authManager
 		    .authenticate(new UsernamePasswordAuthenticationToken(authReq.getEmail(), authReq.getPassword()));
 
-	} catch (Exception e)
+	} 
+    catch (JwtException e)
 	{
-	    throw new Exception("Invalid User");
+	    throw new Exception(e.getMessage());
 	 
 	}
 	return jwt.generateToken(authReq.getEmail());

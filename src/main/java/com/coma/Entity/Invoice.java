@@ -1,15 +1,12 @@
 package com.coma.Entity;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -20,23 +17,33 @@ public class Invoice
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long invoiceNo;
-    @OneToMany(cascade = CascadeType.REMOVE)
-    private List<SalesOrder> salesOrder;
     private float billedAmount;
     private LocalDateTime billedAt;
     private String paymentType;
+    private float discount;
+    //amountPaid=billedAmount-discount;
+    private float amountPaid;
     @OneToOne
     @JoinColumn(name = "customerId")
     private Customer customer;
+    @OneToOne
+    @JoinColumn(name="billerNo")
+    private AppUser biller;
 
 
-    public Invoice(long invoiceNo, List<SalesOrder> salesOrder, float billedAmount, LocalDateTime billedAt, String paymentType, Customer customer) {
+    public Invoice(long invoiceNo, float billedAmount, LocalDateTime billedAt, String paymentType, float discount, float amountPaid, Customer customer, AppUser biller) {
         this.invoiceNo = invoiceNo;
-        this.salesOrder = salesOrder;
         this.billedAmount = billedAmount;
         this.billedAt = billedAt;
         this.paymentType = paymentType;
+        this.discount = discount;
+        this.amountPaid = amountPaid;
         this.customer = customer;
+        this.biller = biller;
+    }
+
+
+    public Invoice() {
     }
 
 
@@ -46,14 +53,6 @@ public class Invoice
 
     public void setInvoiceNo(long invoiceNo) {
         this.invoiceNo = invoiceNo;
-    }
-
-    public List<SalesOrder> getSalesOrder() {
-        return this.salesOrder;
-    }
-
-    public void setSalesOrder(List<SalesOrder> salesOrder) {
-        this.salesOrder = salesOrder;
     }
 
     public float getBilledAmount() {
@@ -80,6 +79,22 @@ public class Invoice
         this.paymentType = paymentType;
     }
 
+    public float getDiscount() {
+        return this.discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
+    public float getAmountPaid() {
+        return this.amountPaid;
+    }
+
+    public void setAmountPaid(float amountPaid) {
+        this.amountPaid = amountPaid;
+    }
+
     public Customer getCustomer() {
         return this.customer;
     }
@@ -88,11 +103,31 @@ public class Invoice
         this.customer = customer;
     }
 
-    public Invoice() {
+    public AppUser getBiller() {
+        return this.biller;
     }
 
-    
-    
-    
-    
+    public void setBiller(AppUser biller) {
+        this.biller = biller;
+    }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+            " invoiceNo='" + getInvoiceNo() + "'" +
+            ", billedAmount='" + getBilledAmount() + "'" +
+            ", billedAt='" + getBilledAt() + "'" +
+            ", paymentType='" + getPaymentType() + "'" +
+            ", discount='" + getDiscount() + "'" +
+            ", amountPaid='" + getAmountPaid() + "'" +
+            ", customer='" + getCustomer() + "'" +
+            ", biller='" + getBiller() + "'" +
+            "}";
+    }
+
+
+
+
+  
 }

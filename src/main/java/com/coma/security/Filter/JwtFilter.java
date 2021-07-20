@@ -60,16 +60,20 @@ public class JwtFilter extends OncePerRequestFilter
 	                usernamePasswordAuthenticationToken
 	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+					
 	            }
-				else{
-					throw new IllegalAccessError("Session expired");
-				}
+				
 	        }
 		}
 		catch(ExpiredJwtException e)
 		{
 			System.out.println("Session Expired");
-			e.printStackTrace();
+			
+		}
+
+		catch(Exception e)
+		{
+			System.out.println("JWT Exception");
 		}
 	        filterChain.doFilter(request, response);
 	

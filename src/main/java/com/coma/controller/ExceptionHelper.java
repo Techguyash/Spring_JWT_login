@@ -11,7 +11,7 @@ public class ExceptionHelper {
     
 
     @ExceptionHandler(value = { Exception.class })    
-        public ResponseEntity<Object> handleInvalidInputException(Exception ex)
+        public ResponseEntity<Object> handleException(Exception ex)
          {
           
        return new ResponseEntity<Object>(ex.getMessage(),HttpStatus.BAD_REQUEST);

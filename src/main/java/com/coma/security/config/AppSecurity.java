@@ -64,9 +64,9 @@ public void configure(WebSecurity web) throws Exception {
 	       .antMatchers("/api/v*/auth/**").permitAll()
            .antMatchers("/hello").permitAll()
 	       .antMatchers("/api/v*/admin/**").hasRole("ADMIN")
-	     
 	        .anyRequest().authenticated()
-                .and().exceptionHandling().and().sessionManagement()
+                .and().exceptionHandling()
+                .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
       http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
