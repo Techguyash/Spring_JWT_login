@@ -44,7 +44,7 @@ public class AdminController
             }
             catch (Exception e)
             {
-		// TODO: handle exception
+		
         	//return new ResponseEntity<UserdataResponse>(HttpStatus.BAD_REQUEST);
         	 return new ResponseEntity<UserdataResponse>(fetchedUserDetails, HttpStatus.BAD_REQUEST);
 	    }

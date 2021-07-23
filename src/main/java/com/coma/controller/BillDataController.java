@@ -12,7 +12,6 @@ import com.coma.Entity.Customer;
 import com.coma.Entity.Products;
 import com.coma.Entity.Units;
 import com.coma.Entity.Vendor;
-
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -109,7 +108,6 @@ public class BillDataController {
       }
       return new ResponseEntity<Products>(product, HttpStatus.OK);
     } catch (Exception e) {
-      //TODO: handle exception
       e.printStackTrace();
       throw new Exception("Error, Please check log");
     }
@@ -153,7 +151,6 @@ public class BillDataController {
       }
       return new ResponseEntity<Products>(product, HttpStatus.OK);
     } catch (Exception e) {
-      //TODO: handle exception
       e.printStackTrace();
       throw new Exception("Error, Please check log");
     }
@@ -218,7 +215,6 @@ public class BillDataController {
       }
       return new ResponseEntity<Category>(category, HttpStatus.OK);
     } catch (Exception e) {
-      //TODO: handle exception
       e.printStackTrace();
       throw new Exception("Error, Please check log");
     }
@@ -226,11 +222,8 @@ public class BillDataController {
 
   //TODO: controller mapping for Customer
 
-
   @PostMapping("/customer")
-  public ResponseEntity<Customer> createCustomer(
-    @RequestBody Customer req
-  )
+  public ResponseEntity<Customer> createCustomer(@RequestBody Customer req)
     throws Exception {
     try {
       Customer createCustomer = null;
@@ -243,7 +236,6 @@ public class BillDataController {
       throw new Exception("error, Please check log");
     }
   }
-
 
   @DeleteMapping("customer/{id}")
   public ResponseEntity<Object> deleteCustomer(@PathVariable int id) {
@@ -285,19 +277,15 @@ public class BillDataController {
       }
       return new ResponseEntity<Customer>(customer, HttpStatus.OK);
     } catch (Exception e) {
-      
       e.printStackTrace();
       throw new Exception("Error, Please check log");
     }
   }
 
-
   //TODO: controller mapping for Vendor
 
   @PostMapping("/vendor")
-  public ResponseEntity<Vendor> createVendor(
-    @RequestBody Vendor req
-  )
+  public ResponseEntity<Vendor> createVendor(@RequestBody Vendor req)
     throws Exception {
     try {
       Vendor createVendor = null;
@@ -310,7 +298,6 @@ public class BillDataController {
       throw new Exception("error, Please check log");
     }
   }
-
 
   @DeleteMapping("vendor/{id}")
   public ResponseEntity<Object> deleteVendor(@PathVariable int id) {
@@ -352,10 +339,8 @@ public class BillDataController {
       }
       return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
     } catch (Exception e) {
-      
       e.printStackTrace();
       throw new Exception("Error, Please check log");
     }
   }
-
 }

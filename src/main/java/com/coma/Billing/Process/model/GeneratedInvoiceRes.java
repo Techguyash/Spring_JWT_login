@@ -2,7 +2,7 @@ package com.coma.Billing.Process.model;
 
 import java.time.LocalDateTime;
 
-public class InvoiceGeneratedRes {
+public class GeneratedInvoiceRes {
 
     private long invoiceNo;
     private float amountPaid;
@@ -10,7 +10,7 @@ public class InvoiceGeneratedRes {
     private LocalDateTime billedAt;
 
 
-    public InvoiceGeneratedRes(long invoiceNo, float amountPaid, String billerName, LocalDateTime billedAt) {
+    public GeneratedInvoiceRes(long invoiceNo, float amountPaid, String billerName, LocalDateTime billedAt) {
         this.invoiceNo = invoiceNo;
         this.amountPaid = amountPaid;
         this.billerName = billerName;
@@ -50,7 +50,7 @@ public class InvoiceGeneratedRes {
         this.billedAt = billedAt;
     }
 
-    public InvoiceGeneratedRes() {
+    public GeneratedInvoiceRes() {
     }
 
     

@@ -1,14 +1,23 @@
 package com.coma.Billing.Process.model;
 
-public class InvoiceProductListReq 
+public class InvoiceProducts 
 {
-        private int productId;
+        private long productId;
         private float qty;
         private float price;
-        private float total; 
+        private float total;
+        private String productName; 
+
+        public String getProductName() {
+                return this.productName;
+        }
+
+        public void setProductName(String productName) {
+                this.productName = productName;
+        }
         
 
-        public InvoiceProductListReq(int productId, float qty, float price, float total) {
+        public InvoiceProducts(long productId, float qty, float price, float total) {
                 this.productId = productId;
                 this.qty = qty;
                 this.price = price;
@@ -16,15 +25,15 @@ public class InvoiceProductListReq
         }
 
 
-        public InvoiceProductListReq() {
+        public InvoiceProducts() {
         }
 
 
-        public int getProductId() {
+        public long getProductId() {
                 return this.productId;
         }
 
-        public void setProductId(int productId) {
+        public void setProductId(long productId) {
                 this.productId = productId;
         }
 

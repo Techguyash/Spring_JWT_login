@@ -2,6 +2,7 @@ package com.coma.Entity;
 
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class SalesOrder
     @OneToOne
     @JoinColumn(name = "productId")
     private Products product;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "invoiceNo")
     private Invoice invoice;
     private float qty;

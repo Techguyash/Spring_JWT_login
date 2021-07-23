@@ -2,12 +2,14 @@
     "productsList": [
         {
             "productId": 1,
+            "productName": "onion",
             "qty": 1.0,
             "price": 100.0,
             "total": 100.0
         },
         {
             "productId": 2,
+             "productName": "laptop",
             "qty": 2.0,
             "price": 200.0,
             "total": 400.0
