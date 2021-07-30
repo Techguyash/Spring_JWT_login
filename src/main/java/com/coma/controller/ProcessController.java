@@ -38,10 +38,10 @@ public class ProcessController {
     }
 
     @GetMapping("/invoice/{invoiceNo}")
-    ResponseEntity<InvoiceGetRes> fetchBill(@PathVariable long invoiceNo)
+    ResponseEntity<InvoiceGetRes> fetchBill(@PathVariable long invoiceNo) throws Exception
     {
       InvoiceGetRes invoiceDetail=null;
-      try {
+   
         invoiceDetail= salesService.getInvoiceDetail(invoiceNo);
         if(invoiceDetail==null)
         {
@@ -49,19 +49,16 @@ public class ProcessController {
         }
           return new ResponseEntity<InvoiceGetRes>(invoiceDetail,HttpStatus.OK);
           
-      } catch (Exception e) {
-          e.printStackTrace();
-        return new ResponseEntity<InvoiceGetRes>(invoiceDetail,HttpStatus.BAD_REQUEST);
-      }
+    
 
       
     }
 
     @GetMapping("/invoice")
-    ResponseEntity<List<InvoiceGetRes>> fetchAllBill()
+    ResponseEntity<List<InvoiceGetRes>> fetchAllBill() throws Exception
     {
        List<InvoiceGetRes> allInvoiceDetail=null;
-      try {
+    
          allInvoiceDetail = salesService.getAllInvoiceDetail();
         if(allInvoiceDetail==null || allInvoiceDetail.isEmpty())
         {
@@ -69,11 +66,7 @@ public class ProcessController {
         }
           return new ResponseEntity<List<InvoiceGetRes>>(allInvoiceDetail,HttpStatus.OK);
           
-      } catch (Exception e) {
-          e.printStackTrace();
-        return new ResponseEntity<List<InvoiceGetRes>>(allInvoiceDetail
-        ,HttpStatus.BAD_REQUEST);
-      }
+    
 
       
     }

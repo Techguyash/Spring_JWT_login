@@ -1,10 +1,10 @@
 package com.coma.User.service;
 
-import com.coma.Auth.Model.RegistrationRequest;
+import com.coma.Auth.Model.RegistrationDTOReq;
 import com.coma.Entity.AppUser;
 import com.coma.Repository.TokenRepo;
 import com.coma.Repository.UserRepo;
-import com.coma.User.model.UserdataResponse;
+import com.coma.User.model.UserdataDTORes;
 
 
 import java.util.ArrayList;
@@ -25,36 +25,35 @@ public class UserService_Impl implements UserServices {
 
 	private AppUser appUser = null;
 
-	public UserdataResponse getUserDetails(String email) {
+	public UserdataDTORes getUserDetails(String email) {
 
 		appUser = userRepo.findByEmail(email).get();
 
 		if (appUser == null) {
-			throw new UsernameNotFoundException("Invalid user please register to continue");
+			throw new UsernameNotFoundException("No User found");
 		}
-		UserdataResponse responseData = new UserdataResponse(appUser.getId(), appUser.getFirstName(),
-				appUser.getLastName(), appUser.getLastLogin(), appUser.getEmail(), appUser.isEnabled());
+		UserdataDTORes responseData = new UserdataDTORes(appUser.getId(), appUser.getName(),
+				 appUser.getLastLogin(), appUser.getEmail(), appUser.isEnabled());
 
 		return responseData;
 
 	}
 
 	@Override
-	public ArrayList<UserdataResponse> getAllUser() {
+	public ArrayList<UserdataDTORes> getAllUserDetails() {
 		List<AppUser> allUser = null;
-		ArrayList<UserdataResponse> responseList = new ArrayList<>();
+		ArrayList<UserdataDTORes> responseList = new ArrayList<>();
 		try {
 			allUser = userRepo.findAll();
 			if (allUser.isEmpty() || allUser == null) {
-				throw new IllegalStateException("No user is present in the system");
+				throw new IllegalStateException("No User found");
 			}
 
 			for (AppUser user : allUser) {
-				UserdataResponse userdata = new UserdataResponse();
+				UserdataDTORes userdata = new UserdataDTORes();
 				userdata.setEmail(user.getEmail());
 				userdata.setDob(user.getDob());
-				userdata.setFirstName(user.getFirstName());
-				userdata.setLastName(user.getLastName());
+				userdata.setName(user.getName());
 				userdata.setEnabled(user.isEnabled());
 				userdata.setId(user.getId());
 				userdata.setLastLogin(user.getLastLogin());
@@ -71,7 +70,7 @@ public class UserService_Impl implements UserServices {
 	public String removeUser(String email) {
 		try {
 			long id = getUserDetails(email).getId();
-			if (id >= 00) {
+			if (id >= 0) {
 				tokenRepo.deleteById(id);
 				userRepo.deleteByEmail(email);
 			}
@@ -84,7 +83,7 @@ public class UserService_Impl implements UserServices {
 
 	}
 
-	public String saveUser(RegistrationRequest req)
+	public String saveUser(RegistrationDTOReq req)
 	{
 		try{
 		long id=userRepo.findByEmail(req.getEmail()).get().getId();
@@ -94,9 +93,7 @@ public class UserService_Impl implements UserServices {
 		user.setId(id);
 		user.setDob(req.getDob());
 		user.setEmail(req.getEmail());
-		user.setFirstName(req.getFirstName());
-		user.setLastName(req.getLastName());
-		user.setAppUserRole(req.getUserRole());
+		user.setName(req.getName());
 		userRepo.save(user);
 		}
 			return "saved";

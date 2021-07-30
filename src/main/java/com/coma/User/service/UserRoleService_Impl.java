@@ -4,7 +4,9 @@ import com.coma.Entity.AppUser_Role;
 import com.coma.Repository.UserRoleRepo;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserRoleService_Impl implements UserRoleService {
 
   @Autowired

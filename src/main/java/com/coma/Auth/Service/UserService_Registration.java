@@ -64,4 +64,7 @@ public class UserService_Registration implements UserDetailsService
         return repo.enableAppUser(email);
     }
 
+
+   
+
 }

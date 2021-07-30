@@ -86,7 +86,7 @@ public class SalesService_Impl implements SalesService {
       GeneratedInvoiceRes response = new GeneratedInvoiceRes();
       response.setAmountPaid(paidAmount);
       response.setBilledAt(billedAt);
-      response.setBillerName(biller.getFirstName());
+      response.setBillerName(biller.getName());
       response.setInvoiceNo(invoice.getInvoiceNo());
 
       return response;
@@ -110,7 +110,7 @@ public class SalesService_Impl implements SalesService {
     }
 
     response.setInvoiceNo(invoiceNo);
-    response.setBillerName(invoiceData.getBiller().getFirstName());
+    response.setBillerName(invoiceData.getBiller().getName());
     response.setBilledAt(invoiceData.getBilledAt());
     response.setAmountPaid(invoiceData.getAmountPaid());
     response.setBilledAmount(invoiceData.getBilledAmount());

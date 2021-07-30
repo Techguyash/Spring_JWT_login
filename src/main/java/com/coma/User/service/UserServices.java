@@ -3,15 +3,15 @@ package com.coma.User.service;
 
 import java.util.ArrayList;
 
-import com.coma.Auth.Model.RegistrationRequest;
-import com.coma.User.model.UserdataResponse;
+import com.coma.Auth.Model.RegistrationDTOReq;
+import com.coma.User.model.UserdataDTORes;
 
 public interface UserServices
 {
-     UserdataResponse getUserDetails(String email);
-     ArrayList<UserdataResponse> getAllUser(); 
+     UserdataDTORes getUserDetails(String email);
+     ArrayList<UserdataDTORes> getAllUserDetails(); 
      String removeUser(String email);
-     String saveUser(RegistrationRequest req);
+     String saveUser(RegistrationDTOReq req);
      
 
 }

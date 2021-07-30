@@ -1,8 +1,9 @@
 package com.coma.controller;
 
 
-import com.coma.Auth.Model.RegistrationRequest;
-import com.coma.User.model.UserdataResponse;
+import com.coma.Auth.Model.RegistrationDTOReq;
+import com.coma.ExceptionHandler.RunTimeException.BusinessApiException;
+import com.coma.User.model.UserdataDTORes;
 import com.coma.User.service.UserService_Impl;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/admin/")
+@RequestMapping("/api/v1/admin/user/")
 public class AdminController 
 {
     @Autowired
@@ -34,65 +35,55 @@ public class AdminController
     
     
         @GetMapping("{email}")
-        public ResponseEntity<UserdataResponse> getUserData(@PathVariable String email)
+        public ResponseEntity<UserdataDTORes> getUserData(@PathVariable String email)
         {
-            UserdataResponse fetchedUserDetails=null;
-            try
-            {
+            UserdataDTORes fetchedUserDetails=null;
              fetchedUserDetails = userService.getUserDetails(email); 
-            return new ResponseEntity<UserdataResponse>(fetchedUserDetails, HttpStatus.OK);
-            }
-            catch (Exception e)
-            {
-		
-        	//return new ResponseEntity<UserdataResponse>(HttpStatus.BAD_REQUEST);
-        	 return new ResponseEntity<UserdataResponse>(fetchedUserDetails, HttpStatus.BAD_REQUEST);
-	    }
+            return new ResponseEntity<UserdataDTORes>(fetchedUserDetails, HttpStatus.OK);
+
         }
         
         @GetMapping()
-        public ArrayList<UserdataResponse> getAllUser()
+        public ResponseEntity<Object> getAllUser() throws BusinessApiException
         {
-            ArrayList<UserdataResponse> allUser=null;
-            try
-            {
-        	 allUser = userService.getAllUser();
+            ArrayList<UserdataDTORes> allUser=null;
+        	 allUser = userService.getAllUserDetails();
         	if(allUser==null || allUser.isEmpty())
         	{
-        	    throw new Exception("No user found");
+        	    throw new BusinessApiException("No user found");
         	}
-        	
-            }
-            catch (Exception e)
-            {
-        	e.printStackTrace();
-            }
-            return allUser;
+          
+            return new ResponseEntity<Object>(allUser,HttpStatus.OK);
         }
         
         @DeleteMapping("{email}")
-        public String removeUser(@PathVariable String email)
+        public ResponseEntity<Object> removeUser(@PathVariable String email)
         {
             
            String result = userService.removeUser(email);
            if(result.equalsIgnoreCase("OK"))
            {
-               return "OK";
+               return new ResponseEntity<>("success",HttpStatus.OK);
            }
-           
-           return "failed";
-           
+           else{
+               throw new BusinessApiException("failed to delete");
+           }
+       
         }
+    
+        
         
         @PutMapping
-        String updateUserdata(@RequestBody RegistrationRequest request)
+        public ResponseEntity<Object> updateUserdata(@RequestBody RegistrationDTOReq request) throws Exception
         {
             String saveUser = userService.saveUser(request);
             if(saveUser.equalsIgnoreCase("saved"))
             {
-                return "success";
+                return new ResponseEntity<>("success",HttpStatus.OK);
             }
-            return "failed";
+           else{
+               throw new Exception("error, check logs");
+           }
         }
         
 }

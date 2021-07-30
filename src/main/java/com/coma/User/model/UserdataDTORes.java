@@ -3,22 +3,20 @@ package com.coma.User.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class UserdataResponse 
+public class UserdataDTORes 
 {
     private long id;
-    private String firstName;
-    private String lastName;
+    private String Name;
     private LocalDateTime lastLogin;
     private LocalDate dob;
     private String email;
     private boolean enabled;
     
     
-    public UserdataResponse(long id, String firstName, String lastName, LocalDateTime lastLogin, String email,
+    public UserdataDTORes(long id, String Name, LocalDateTime lastLogin, String email,
     boolean enabled) {
 this.id = id;
-this.firstName = firstName;
-this.lastName = lastName;
+this.Name = Name;
 this.lastLogin = lastLogin;
 this.email = email;
 this.enabled = enabled;
@@ -26,7 +24,7 @@ this.enabled = enabled;
 
 
 
-    public UserdataResponse()
+    public UserdataDTORes()
     {
 	
     }
@@ -57,21 +55,21 @@ this.enabled = enabled;
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+
+    public String getName() {
+        return this.Name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String Name) {
+        this.Name = Name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public boolean getEnabled() {
+        return this.enabled;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+
+  
 
     public String getEmail() {
         return email;

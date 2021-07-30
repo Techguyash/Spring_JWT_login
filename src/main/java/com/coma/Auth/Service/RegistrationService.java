@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coma.Auth.Model.ConfirmationToken;
-import com.coma.Auth.Model.RegistrationRequest;
+import com.coma.Auth.Model.RegistrationDTOReq;
 import com.coma.Email.EmailSender;
 import com.coma.Entity.AppUser;
 
@@ -27,10 +27,10 @@ public class RegistrationService
     @Autowired
     private EmailSender emailSender;
     
-    public String register(RegistrationRequest request)
+    public String register(RegistrationDTOReq request)
     {
-	String token=userService.signUp(new AppUser(request.getFirstName(), request.getLastName(), request.getEmail(),
-		request.getPassword(),request.getUserRole()));
+	String token=userService.signUp(new AppUser(request.getName(), request.getEmail(),
+		request.getPassword(),request.getDob()));
 	
 	String link="http://localhost:8080/api/v1/auth/confirm?token="+token;
 	//emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));

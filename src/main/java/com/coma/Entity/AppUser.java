@@ -30,15 +30,34 @@ public class AppUser implements UserDetails
 	    @Id
 	    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Seq_userId")
 	    private Long id;
-	    private String firstName;
-	    private String lastName;
-	    private String email;
+	    private String Name;
+		private String email;
 	    private String password;
 		private LocalDate dob;
 		private LocalDateTime lastLogin;
 		private boolean enabled=false;
 		private String appUserRole;
 	    private boolean locked=false;
+		
+
+	public String getName() {
+		return this.Name;
+	}
+
+	public void setName(String Name) {
+		this.Name = Name;
+	}
+
+	public boolean getEnabled() {
+		return this.enabled;
+	}
+
+
+	public boolean getLocked() {
+		return this.locked;
+	}
+
+	  
 	    
 	    
 
@@ -46,12 +65,12 @@ public class AppUser implements UserDetails
 	    {
 		super();
 	    }
-		public AppUser(String firstName, String lastName, String email, String password, String appUserRole) {
-			this.firstName = firstName;
-			this.lastName = lastName;
+		public AppUser(String Name, String email, String password,LocalDate dob) {
+			this.Name = Name;
 			this.email = email;
 			this.password = password;
-			this.appUserRole = appUserRole;
+			this.dob=dob;
+			
 		}
 	  
 
@@ -79,7 +98,7 @@ public class AppUser implements UserDetails
 		@Override
 	    public String toString()
 	    {
-		return "AppUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+		return "AppUser [id=" + id + " email=" + email
 			+ ", password=" + password + ", enabled=" + enabled + ", appUserRole=" + appUserRole
 			+ ", locked=" + locked + "]";
 	    }
@@ -91,22 +110,6 @@ public class AppUser implements UserDetails
 	    public void setId(Long id)
 	    {
 	        this.id = id;
-	    }
-	    public String getFirstName()
-	    {
-	        return firstName;
-	    }
-	    public void setFirstName(String firstName)
-	    {
-	        this.firstName = firstName;
-	    }
-	    public String getLastName()
-	    {
-	        return lastName;
-	    }
-	    public void setLastName(String lastName)
-	    {
-	        this.lastName = lastName;
 	    }
 	    public String getEmail()
 	    {

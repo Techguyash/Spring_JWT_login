@@ -1,8 +1,11 @@
 package com.coma.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +15,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.JwtException;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import com.coma.Auth.Model.AuthRequest;
-import com.coma.Auth.Model.RegistrationRequest;
+import com.coma.Auth.Model.RegistrationDTOReq;
 import com.coma.Auth.Service.RegistrationService;
+import com.coma.Entity.AppUser_Role;
+import com.coma.User.service.UserRoleService;
 import com.coma.security.util.JwtUtil;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Validated
 public class AuthController
 {
     
@@ -31,6 +41,9 @@ public class AuthController
 
     @Autowired
     private AuthenticationManager authManager;
+
+    @Autowired
+    private UserRoleService roleService;
 
     /*
      * This End point is used to login
@@ -62,9 +75,11 @@ public class AuthController
      * */
     
     @PostMapping("/register")
-    public String register(@RequestBody RegistrationRequest request)
+    public  ResponseEntity<Object> register(@RequestBody @Valid RegistrationDTOReq request)
     {
-        return registrationService.register(request);
+      
+        registrationService.register(request);
+        return new ResponseEntity<Object>("success", HttpStatus.OK);
     }
     
     
@@ -74,12 +89,20 @@ public class AuthController
      * this can be used by the Email service
      * */
     @GetMapping("/confirm")
-    public String confirm(@RequestParam("token") String token)
+    public  ResponseEntity<Object> confirm(@RequestParam("token") String token)
     {
-        return registrationService.confirmToken(token);
+        String message= registrationService.confirmToken(token);
+        return new ResponseEntity<Object>(message, HttpStatus.OK);
      
     }
   
+    @GetMapping("/roles")
+    public  ResponseEntity<Object> getAllRoles()
+    {
+        List<AppUser_Role> allRole = roleService.getAllRole();
+
+        return new ResponseEntity<Object>(allRole,HttpStatus.OK);
+    }
 
 
     
