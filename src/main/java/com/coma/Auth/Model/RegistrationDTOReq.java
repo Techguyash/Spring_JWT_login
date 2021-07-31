@@ -3,7 +3,6 @@ package com.coma.Auth.Model;
 import java.time.LocalDate;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 

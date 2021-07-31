@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.coma.Auth.Model.ConfirmationToken;
@@ -26,14 +27,26 @@ public class RegistrationService
     
     @Autowired
     private EmailSender emailSender;
+
+    //values from the properties file
+    @Value("${trackme.baseurl}")
+    String baseUrl;
+
+    @Value("${trackme.email.service.enabled}")
+    boolean emailService;
+
     
     public String register(RegistrationDTOReq request)
     {
 	String token=userService.signUp(new AppUser(request.getName(), request.getEmail(),
 		request.getPassword(),request.getDob()));
 	
-	String link="http://localhost:8080/api/v1/auth/confirm?token="+token;
-	//emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
+	String link=baseUrl+"/auth/confirm?token="+token;
+
+        if(emailService)
+        {
+        	emailSender.send(request.getEmail(), buildEmail(request.getName(), link));
+        }
 	return token;
     }
     
