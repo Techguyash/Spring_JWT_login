@@ -8,15 +8,35 @@ public class GeneratedInvoiceRes {
     private float amountPaid;
     private String billerName;
     private LocalDateTime billedAt;
+    private int tax;
+    private int discount;
+    private String taxName;
 
 
-    public GeneratedInvoiceRes(long invoiceNo, float amountPaid, String billerName, LocalDateTime billedAt) {
-        this.invoiceNo = invoiceNo;
-        this.amountPaid = amountPaid;
-        this.billerName = billerName;
-        this.billedAt = billedAt;
+    public String getTaxName() {
+        return this.taxName;
     }
 
+    public void setTaxName(String taxName) {
+        this.taxName = taxName;
+    }
+
+    public int getTax() {
+        return this.tax;
+    }
+
+    public void setTax(int tax) {
+        this.tax = tax;
+    }
+
+    public int getDiscount() {
+        return this.discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+    
 
     public long getInvoiceNo() {
         return this.invoiceNo;

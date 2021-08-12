@@ -4,27 +4,36 @@ import java.util.List;
 
 
 
+
 public class GenerateInvoiceReq {
 /*
 need individual product data
 bill data
 */
    private List<InvoiceProducts> productsList;
-    private float discount;
     private float billedAmount;
     private long customerId;
     private long billerId;
     private String paymentType;
+    private int tax;
+    private int discount;
 
 
 
-    public GenerateInvoiceReq(List<InvoiceProducts> productsList, float discount, float billedAmount, long customerId, long billerId, String paymentType) {
-        this.productsList = productsList;
+    public int getTax() {
+        return this.tax;
+    }
+
+    public void setTax(int tax) {
+        this.tax = tax;
+    }
+
+    public int getDiscount() {
+        return this.discount;
+    }
+
+    public void setDiscount(int discount) {
         this.discount = discount;
-        this.billedAmount = billedAmount;
-        this.customerId = customerId;
-        this.billerId = billerId;
-        this.paymentType = paymentType;
     }
 
 
@@ -39,13 +48,6 @@ bill data
         this.productsList = productsList;
     }
 
-    public float getDiscount() {
-        return this.discount;
-    }
-
-    public void setDiscount(float discount) {
-        this.discount = discount;
-    }
 
     public float getBilledAmount() {
         return this.billedAmount;

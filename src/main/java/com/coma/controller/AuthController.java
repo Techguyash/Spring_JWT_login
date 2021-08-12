@@ -78,8 +78,8 @@ public class AuthController
     public  ResponseEntity<Object> register(@RequestBody @Valid RegistrationDTOReq request)
     {
       
-        registrationService.register(request);
-        return new ResponseEntity<Object>("success", HttpStatus.OK);
+        String token = registrationService.register(request);
+        return new ResponseEntity<Object>(token, HttpStatus.OK);
     }
     
     

@@ -14,12 +14,30 @@ public class InvoiceGetRes
     private float discount;
     private String paymentType;
     private String customerName;
+    private String taxName;
+    private float tax;
     private List<InvoiceProducts> products;
 
 
     public InvoiceGetRes() {
     }
 
+
+    public String getTaxName() {
+        return this.taxName;
+    }
+
+    public void setTaxName(String taxName) {
+        this.taxName = taxName;
+    }
+
+    public float getTax() {
+        return this.tax;
+    }
+
+    public void setTax(float tax) {
+        this.tax = tax;
+    }
 
     public long getInvoiceNo() {
         return this.invoiceNo;

@@ -23,7 +23,6 @@ public class Invoice
     private float billedAmount;
     private LocalDateTime billedAt;
     private String paymentType;
-    private float discount;
     //amountPaid=billedAmount-discount;
     private float amountPaid;
     @OneToOne
@@ -32,9 +31,13 @@ public class Invoice
     @OneToOne
     @JoinColumn(name="billerNo")
     private AppUser biller;
+    @OneToOne
+    private Discount discount;
+    @OneToOne
+    private Tax tax;
 
 
-    public Invoice(long invoiceNo, float billedAmount, LocalDateTime billedAt, String paymentType, float discount, float amountPaid, Customer customer, AppUser biller) {
+    public Invoice(long invoiceNo, float billedAmount, LocalDateTime billedAt, String paymentType, Discount discount, float amountPaid, Customer customer, AppUser biller) {
         this.invoiceNo = invoiceNo;
         this.billedAmount = billedAmount;
         this.billedAt = billedAt;
@@ -47,6 +50,24 @@ public class Invoice
 
 
     public Invoice() {
+    }
+
+
+    public Tax getTax() {
+        return this.tax;
+    }
+
+    public void setTax(Tax tax) {
+        this.tax = tax;
+    }
+
+
+    public Discount getDiscount() {
+        return this.discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
     }
 
 
@@ -82,14 +103,7 @@ public class Invoice
         this.paymentType = paymentType;
     }
 
-    public float getDiscount() {
-        return this.discount;
-    }
-
-    public void setDiscount(float discount) {
-        this.discount = discount;
-    }
-
+  
     public float getAmountPaid() {
         return this.amountPaid;
     }
@@ -115,6 +129,7 @@ public class Invoice
     }
 
 
+
     @Override
     public String toString() {
         return "{" +
@@ -122,12 +137,14 @@ public class Invoice
             ", billedAmount='" + getBilledAmount() + "'" +
             ", billedAt='" + getBilledAt() + "'" +
             ", paymentType='" + getPaymentType() + "'" +
-            ", discount='" + getDiscount() + "'" +
             ", amountPaid='" + getAmountPaid() + "'" +
             ", customer='" + getCustomer() + "'" +
             ", biller='" + getBiller() + "'" +
+            ", discount='" + getDiscount() + "'" +
+            ", tax='" + getTax() + "'" +
             "}";
     }
+ 
 
 
 
