@@ -1,4 +1,4 @@
-package com.coma.controller;
+package com.coma.controller.Authentication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.JwtException;
-import io.swagger.annotations.Info;
-import io.swagger.annotations.SwaggerDefinition;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.coma.controller;
+package com.coma.controller.admin;
 
 import com.coma.Billing.Data.model.CreateCategoryRequest;
 import com.coma.Billing.Data.model.CreateProductRequest;
@@ -7,6 +7,10 @@ import com.coma.Billing.Data.service.CustomerService;
 import com.coma.Billing.Data.service.ProductService;
 import com.coma.Billing.Data.service.UnitService;
 import com.coma.Billing.Data.service.VendorService;
+import com.coma.Billing.Process.model.GenerateInvoiceReq;
+import com.coma.Billing.Process.model.GeneratedInvoiceRes;
+import com.coma.Billing.Process.model.InvoiceGetRes;
+import com.coma.Billing.Process.service.SalesService;
 import com.coma.Entity.Category;
 import com.coma.Entity.Customer;
 import com.coma.Entity.Products;
@@ -43,6 +47,9 @@ public class BillDataController {
 
   @Autowired
   VendorService vendorService;
+
+  @Autowired
+  SalesService salesService;
 
   //TODO: controller mapping for Units
 
@@ -290,4 +297,41 @@ public class BillDataController {
       return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
   
   }
+
+  //TODO: Invoice Endpoints
+  @PostMapping("/generateInvoice")
+  GeneratedInvoiceRes generateBill(@RequestBody GenerateInvoiceReq request)
+  {
+      GeneratedInvoiceRes generateInvoice = salesService.generateInvoice(request);
+      return generateInvoice;
+  }
+
+  @GetMapping("/invoice/{invoiceNo}")
+  ResponseEntity<InvoiceGetRes> fetchBill(@PathVariable long invoiceNo) throws Exception
+  {
+    InvoiceGetRes invoiceDetail=null;
+ 
+      invoiceDetail= salesService.getInvoiceDetail(invoiceNo);
+      if(invoiceDetail==null)
+      {
+        throw new Exception("No invoice found");
+      }
+        return new ResponseEntity<InvoiceGetRes>(invoiceDetail,HttpStatus.OK);
+    
+  }
+
+  @GetMapping("/invoice")
+  ResponseEntity<List<InvoiceGetRes>> fetchAllBill() throws Exception
+  {
+     List<InvoiceGetRes> allInvoiceDetail=null;
+  
+       allInvoiceDetail = salesService.getAllInvoiceDetail();
+      if(allInvoiceDetail==null || allInvoiceDetail.isEmpty())
+      {
+        throw new Exception("No invoice found");
+      }
+        return new ResponseEntity<List<InvoiceGetRes>>(allInvoiceDetail,HttpStatus.OK);
+    
+  }
+
 }

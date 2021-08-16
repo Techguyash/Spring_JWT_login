@@ -1,4 +1,4 @@
-package com.coma.controller;
+package com.coma.controller.admin;
 
 
 import com.coma.Auth.Model.RegistrationDTOReq;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/admin/user/")
-public class AdminController 
+public class UserController 
 {
     @Autowired
     UserService_Impl userService;
