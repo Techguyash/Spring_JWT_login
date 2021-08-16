@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.JwtException;
+import io.swagger.annotations.Info;
+import io.swagger.annotations.SwaggerDefinition;
 
 import java.util.List;
 
