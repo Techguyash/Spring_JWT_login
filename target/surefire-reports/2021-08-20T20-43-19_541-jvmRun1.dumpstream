@@ -1,0 +1,13 @@
+# Created at 2021-08-20T21:09:26.633
+TestSet has not finished before stream error has appeared >> initializing exit by non-null configuration: null
+java.io.EOFException
+	at java.base/java.io.DataInputStream.readInt(DataInputStream.java:397)
+	at org.apache.maven.surefire.booter.MasterProcessCommand.decode(MasterProcessCommand.java:115)
+	at org.apache.maven.surefire.booter.CommandReader$CommandRunnable.run(CommandReader.java:391)
+	at java.base/java.lang.Thread.run(Thread.java:829)
+
+
+# Created at 2021-08-20T21:59:49.026
+Unexpected IOException with stream: 2021-08-20 21:59:49.025  INFO 20857 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+
