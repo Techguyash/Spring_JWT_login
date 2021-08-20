@@ -32,7 +32,7 @@ public class TaxService_Impl implements TaxService {
     }
 
     @Override
-    public List<Tax> getAllTaxs() {
+    public List<Tax> getAllTax() {
 
         return repo.findAll();
     }
@@ -76,7 +76,7 @@ public class TaxService_Impl implements TaxService {
     public Tax createTax(CreateTaxRequest tax) {
 
         try {
-            List<Tax> availableTax = getAllTaxs();
+            List<Tax> availableTax = getAllTax();
 
             for (Tax availTax : availableTax) {
                 if (availTax.getTaxName().trim().equalsIgnoreCase(tax.getTaxName().trim())) {

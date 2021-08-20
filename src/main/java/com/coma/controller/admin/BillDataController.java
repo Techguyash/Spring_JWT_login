@@ -1,21 +1,25 @@
 package com.coma.controller.admin;
 
 import com.coma.Billing.Data.model.CreateCategoryRequest;
+import com.coma.Billing.Data.model.CreateDiscountRequest;
 import com.coma.Billing.Data.model.CreateProductRequest;
+import com.coma.Billing.Data.model.CreateTaxRequest;
 import com.coma.Billing.Data.service.CategoryService;
 import com.coma.Billing.Data.service.CustomerService;
+import com.coma.Billing.Data.service.DiscountService;
 import com.coma.Billing.Data.service.ProductService;
+import com.coma.Billing.Data.service.TaxService;
 import com.coma.Billing.Data.service.UnitService;
-import com.coma.Billing.Data.service.VendorService;
 import com.coma.Billing.Process.model.GenerateInvoiceReq;
 import com.coma.Billing.Process.model.GeneratedInvoiceRes;
 import com.coma.Billing.Process.model.InvoiceGetRes;
 import com.coma.Billing.Process.service.SalesService;
 import com.coma.Entity.Category;
 import com.coma.Entity.Customer;
+import com.coma.Entity.Discount;
 import com.coma.Entity.Products;
+import com.coma.Entity.Tax;
 import com.coma.Entity.Units;
-import com.coma.Entity.Vendor;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,11 +49,16 @@ public class BillDataController {
   @Autowired
   CustomerService customerService;
 
-  @Autowired
-  VendorService vendorService;
+ 
 
   @Autowired
   SalesService salesService;
+
+  @Autowired
+  TaxService taxService;
+
+  @Autowired
+  DiscountService discountService;
 
   //TODO: controller mapping for Units
 
@@ -247,57 +256,7 @@ public class BillDataController {
    
   }
 
-  //TODO: controller mapping for Vendor
-
-  @PostMapping("/vendor")
-  public ResponseEntity<Vendor> createVendor(@RequestBody Vendor req)
-    throws Exception {
-   
-      Vendor createVendor = null;
-      createVendor = vendorService.createVendor(req);
-      if (createVendor == null) {
-        throw new Exception("Failed to create, Please check log");
-      }
-      return new ResponseEntity<Vendor>(createVendor, HttpStatus.OK);
-  
-  }
-
-  @DeleteMapping("vendor/{id}")
-  public ResponseEntity<Object> deleteVendor(@PathVariable int id) {
-   
-      if (vendorService.deleteVendor(id)) {
-        return new ResponseEntity<Object>("success", HttpStatus.OK);
-      }
-      return new ResponseEntity<Object>("error", HttpStatus.BAD_REQUEST);
-  
-  }
-
-  @GetMapping("/vendor")
-  public List<Vendor> getAllVendor() throws Exception {
-   
-      return vendorService.getAllVendors();
-  
-  }
-
-  @GetMapping("/vendor/{vendorId}")
-  public Vendor getVendor(@PathVariable int vendorId) throws Exception {
-   
-      return vendorService.getVendor(vendorId);
-   
-  }
-
-  @PutMapping("/vendor")
-  public ResponseEntity<Vendor> updateVendor(@RequestBody Vendor req)
-    throws Exception {
-  
-      Vendor vendor = vendorService.updateVendor(req);
-      if (vendor == null) {
-        throw new Exception("Failed to update, Please check log");
-      }
-      return new ResponseEntity<Vendor>(vendor, HttpStatus.OK);
-  
-  }
-
+ 
   //TODO: Invoice Endpoints
   @PostMapping("/generateInvoice")
   GeneratedInvoiceRes generateBill(@RequestBody GenerateInvoiceReq request)
@@ -333,5 +292,114 @@ public class BillDataController {
         return new ResponseEntity<List<InvoiceGetRes>>(allInvoiceDetail,HttpStatus.OK);
     
   }
+  
+  //TODO: Tax controller
+
+  @PostMapping("/tax")
+  public ResponseEntity<Tax> createTax(@RequestBody CreateTaxRequest req)
+    throws Exception {
+   
+      Tax tax = null;
+      tax = taxService.createTax(req);
+      if (tax == null) {
+        throw new Exception("Failed to create, Please check log");
+      }
+      return new ResponseEntity<Tax>(tax, HttpStatus.OK);
+  
+  }
+
+
+  @DeleteMapping("tax/{id}")
+  public ResponseEntity<Object> deleteTax(@PathVariable int id) {
+   
+      if (taxService.deleteTax(id)) {
+        return new ResponseEntity<Object>("success", HttpStatus.OK);
+      }
+      return new ResponseEntity<Object>("error", HttpStatus.BAD_REQUEST);
+  
+  }
+
+  @GetMapping("/tax")
+  public List<Tax> getAllTax() throws Exception {
+   
+      return taxService.getAllTax();
+  
+  }
+
+  @GetMapping("/tax/{taxId}")
+  public Tax getTax(@PathVariable int taxId) throws Exception {
+   
+      return taxService.getTax(taxId);
+  }
+
+
+  @PutMapping("/tax")
+  public ResponseEntity<Tax> updateTax(@RequestBody Tax req)
+    throws Exception {
+  
+      Tax tax =null;
+      tax= taxService.updateTax(req);
+      if (tax == null) {
+        throw new Exception("Failed to update, Please check log");
+      }
+      return new ResponseEntity<Tax>(tax, HttpStatus.OK);
+  
+  }
+
+
+
+//TODO:Discount controller mapping
+
+@PostMapping("/discount")
+public ResponseEntity<Discount> createDiscount(@RequestBody CreateDiscountRequest req)
+  throws Exception {
+ 
+    Discount discount = null;
+    discount = discountService.createDiscount(req);
+    if (discount == null) {
+      throw new Exception("Failed to create, Please check log");
+    }
+    return new ResponseEntity<Discount>(discount, HttpStatus.OK);
+
+}
+
+
+@DeleteMapping("discount/{id}")
+public ResponseEntity<Object> deleteDiscount(@PathVariable int id) {
+ 
+    if (discountService.deleteDiscount(id)) {
+      return new ResponseEntity<Object>("success", HttpStatus.OK);
+    }
+    return new ResponseEntity<Object>("error", HttpStatus.BAD_REQUEST);
+
+}
+
+@GetMapping("/discount")
+public List<Discount> getAllDiscount() throws Exception {
+ 
+    return discountService.getAllDiscounts();
+
+}
+
+@GetMapping("/discount/{discountId}")
+public Discount getDiscount(@PathVariable int discountId) throws Exception {
+ 
+    return discountService.getDiscount(discountId);
+}
+
+
+@PutMapping("/discount")
+public ResponseEntity<Discount> updateDiscount(@RequestBody Discount req)
+  throws Exception {
+
+    Discount discount =null;
+    discount= discountService.updateDiscount(req);
+    if (discount == null) {
+      throw new Exception("Failed to update, Please check log");
+    }
+    return new ResponseEntity<Discount>(discount, HttpStatus.OK);
+
+}
+
 
 }

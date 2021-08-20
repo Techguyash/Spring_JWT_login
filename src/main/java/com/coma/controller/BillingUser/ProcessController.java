@@ -9,14 +9,12 @@ import com.coma.Billing.Data.service.CategoryService;
 import com.coma.Billing.Data.service.CustomerService;
 import com.coma.Billing.Data.service.ProductService;
 import com.coma.Billing.Data.service.UnitService;
-import com.coma.Billing.Data.service.VendorService;
 import com.coma.Billing.Process.model.GenerateInvoiceReq;
 import com.coma.Billing.Process.service.SalesService;
 import com.coma.Entity.Category;
 import com.coma.Entity.Customer;
 import com.coma.Entity.Products;
 import com.coma.Entity.Units;
-import com.coma.Entity.Vendor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -49,8 +47,7 @@ public class ProcessController {
     @Autowired
     CustomerService customerService;
   
-    @Autowired
-    VendorService vendorService;
+  
    
 
     @PostMapping("/generateInvoice")
@@ -116,13 +113,6 @@ public class ProcessController {
   public List<Customer> getAllCustomer() throws Exception {
    
       return customerService.getAllCustomers();
-  
-  }
-
-  @GetMapping("/vendor")
-  public List<Vendor> getAllVendor() throws Exception {
-   
-      return vendorService.getAllVendors();
   
   }
     

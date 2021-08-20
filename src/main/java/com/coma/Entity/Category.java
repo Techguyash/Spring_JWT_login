@@ -6,13 +6,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Category {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @SequenceGenerator(
+    name = "Seq_categoryId",
+    allocationSize = 1,
+    sequenceName = "Seq_categoryId"
+)
+
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Seq_categoryId")
   private int categoryId;
 
   private String categoryName;

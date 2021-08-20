@@ -66,8 +66,7 @@ public class StartupData {
         discount.setPercentageVal(0);
         discount.setEnabled(true);
         discountRepo.save(discount);
-     
-
-        
     }
+
+    //TODO: add default retailer vendor
 }

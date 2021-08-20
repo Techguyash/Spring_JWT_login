@@ -1,8 +1,11 @@
 package com.coma.Billing.Process.service;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import com.coma.Billing.Data.service.CustomerService;
 import com.coma.Billing.Data.service.DiscountService;
@@ -51,6 +54,7 @@ public class SalesService_Impl implements SalesService {
   TaxService taxService;
 
   @Override
+  @Transactional(rollbackOn = {Exception.class,SQLException.class})
   public GeneratedInvoiceRes generateInvoice(GenerateInvoiceReq request) 
   {
     try {

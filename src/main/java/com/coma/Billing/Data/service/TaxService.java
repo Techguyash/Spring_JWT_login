@@ -9,7 +9,7 @@ public interface TaxService {
     
     Tax createTax(CreateTaxRequest tax);
     Tax getTax(int id);
-    List<Tax> getAllTaxs();
+    List<Tax> getAllTax();
     Tax updateTax(Tax tax);
     boolean deleteTax(int Id);
 }

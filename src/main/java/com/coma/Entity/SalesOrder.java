@@ -8,14 +8,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "salesorder_t")
 public class SalesOrder
 {
+    @SequenceGenerator(
+        name = "Seq_salesOrderId",
+        allocationSize = 1,
+        sequenceName = "Seq_salesOrderId"
+    )
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Seq_salesOrderId")
     private long salesId;
     @OneToOne
     @JoinColumn(name = "productId")
