@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Discount {
 
-    @SequenceGenerator(name = "Seq_discountId",initialValue = 0,sequenceName = "Seq_discountId")
+    @SequenceGenerator(name = "Seq_discountId",initialValue = 1,sequenceName = "Seq_discountId")
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Seq_discountId")

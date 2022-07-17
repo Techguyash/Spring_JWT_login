@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class Tax {
 
     
-    @SequenceGenerator(name = "Seq_taxId",initialValue = 0,sequenceName = "Seq_taxId")
+    @SequenceGenerator(name = "Seq_taxId",initialValue = 1,sequenceName = "Seq_taxId")
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "Seq_taxId")
